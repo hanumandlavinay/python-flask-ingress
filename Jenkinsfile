@@ -15,14 +15,14 @@ pipeline {
 	stages {
 	  stage('Get Code') {
 	    steps {
-			echo "Build not required"
+			git clone "https://github.com/hanumandlavinay/python-flask-ingress"
 		   
 	    }  
 	  
 	  }
 	  stage('Build and Push Image') {
 	    steps {
-		  //sh 'docker login -u AWS -p $(aws ecr get-login-password --region ap-south-1) 144273344769.dkr.ecr.ap-south-1.amazonaws.com'
+		  //sh '`-p $(aws ecr get-login-password --region ap-south-1) 144273344769.dkr.ecr.ap-south-1.amazonaws.com'
 		  sh 'docker login -u "hvny" -p "7702305501@Dhub" docker.io'
 		  sh 'docker image build -t ${REPOSITORY_TAG} .'
 		  sh 'docker push ${REPOSITORY_TAG}'
