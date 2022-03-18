@@ -1,0 +1,30 @@
+# yaml file to make use of ingress-controller
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pythonwebapp.surya-aws.tk
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: python-flask-docker-hello-world
+            port:
+              number: 5000
+                  #serviceName: python-flask-docker-hello-world
+                  #servicePort: 80
+          #serviceName: LoadBalancer
+          #servicePort: 80
+        path: /?(.*)
+status:
+  loadBalancer:
+    ingress:
+    - ip: abb944332861b4ce5bfc12e77fc39a3d-565488813.ap-south-1.elb.amazonaws.com
